@@ -1,10 +1,15 @@
 import './styles/main.css'
 import React, {useState} from "react";
 
+export interface Task {
+    title: string;
+    dueDate: string;
+}
+
 function App() {
-    const [title, setTitle] = useState('');
-    const [dueDate, setDueDate] = useState('');
-    const [message, setMessage] = useState('');
+    const [title, setTitle] = useState<string>('');
+    const [dueDate, setDueDate] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -17,14 +22,14 @@ function App() {
             return;
         }
 
-        const newTask = JSON.stringify(
-            {
-                title: title,
-                dueDate: dueDate
-            }
-        );
+        const existingTasks: Array<Task> = JSON.parse(localStorage.getItem('tasks') as string) || [];
 
-        localStorage.setItem('task', newTask);
+        const newTask: Task = {
+            title: title,
+            dueDate: dueDate
+        };
+
+        localStorage.setItem('tasks', JSON.stringify([...existingTasks, newTask]));
         setMessage('Tâche créée avec succès.');
 
         setTitle('');
