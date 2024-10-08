@@ -37,9 +37,9 @@ function App() {
         setTitle('');
         setDueDate('');
 
-        // setTimeout(() => {
-        //     setMessage('');
-        // }, 10000);
+        setTimeout(() => {
+            setMessage('');
+        }, 10000);
     }
 
     return (
