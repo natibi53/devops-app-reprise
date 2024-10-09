@@ -1,17 +1,27 @@
 import './styles/main.css'
+import 'react-big-calendar/lib/css/react-big-calendar.css'
 import React, {useState} from "react";
+import { useLocalStorage } from "@uidotdev/usehooks";
+import { Calendar, momentLocalizer } from 'react-big-calendar'
+import moment from "moment"
 
-export interface Task {
+export interface Event {
+    id: number;
     title: string;
-    dueDate: string;
+    start: Date;
+    end: Date;
 }
 
 export const TASKS_STORAGE_KEY = 'tasks';
 
+// @todo: gérer l'affichage du formulaire avec un clic bouton
+
 function App() {
-    const [title, setTitle] = useState<string>('');
+    const [title, setTitle]     = useState<string>('');
     const [dueDate, setDueDate] = useState<string>('');
     const [message, setMessage] = useState<string>('');
+    const [events, setEvents]   = useLocalStorage<Array<Event>>(TASKS_STORAGE_KEY, []);
+    const localizer             = momentLocalizer(moment);
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -24,14 +34,12 @@ function App() {
             return;
         }
 
-        const existingTasks: Array<Task> = JSON.parse(localStorage.getItem(TASKS_STORAGE_KEY) as string) || [];
-
-        const newTask: Task = {
+        setEvents([...events, {
+            id: events.length,
             title: title,
-            dueDate: dueDate
-        };
-
-        localStorage.setItem(TASKS_STORAGE_KEY, JSON.stringify([...existingTasks, newTask]));
+            start: new Date(dueDate),
+            end: new Date(dueDate),
+        }]);
         setMessage('Tâche créée avec succès.');
 
         setTitle('');
@@ -40,7 +48,7 @@ function App() {
         setTimeout(() => {
             setMessage('');
         }, 10000);
-    }
+    };
 
     return (
         <>
@@ -53,6 +61,16 @@ function App() {
                 <button type="submit" id='submit' className='justify-self-center grow bg-violet-300 p-2 m-4 rounded-lg'>Créer une tâche</button>
             </form>
             {message !== '' && <p className='text-center text-violet-800 mt-4' id='message'>{message}</p>}
+
+            <hr className='grow bg-violet-400 my-12'/>
+
+            <Calendar
+                localizer={localizer}
+                events={events}
+                startAccessor='start'
+                endAccessor='end'
+                style={{height: 400}}
+            />
         </>
     );
 }
