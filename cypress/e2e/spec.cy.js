@@ -14,7 +14,7 @@ describe('Create task', () => {
 
         cy.getAllLocalStorage()
             .then(
-                ls => expect(JSON.parse(ls[Cypress.config().baseUrl].tasks)).to.deep.equal([{id: 0, title: 'ceci est un test !', start: today, end: today }])
+                ls => expect(JSON.parse(ls[Cypress.config().baseUrl].tasks)).to.deep.equal([{id: 0, title: 'ceci est un test !', start: today, end: today, allDay: true}])
             )
         ;
 
@@ -47,5 +47,25 @@ describe('Get existing tasks', () => {
         cy.visit('/');
 
         cy.get('.rbc-event-content').contains('ceci est un test !');
+    });
+});
+
+describe('Delete task', () => {
+    before(() => {
+        cy.restoreLocalStorage('tasks');
+    });
+
+    it('Can delete a task.', () => {
+        cy.visit('/');
+
+        cy.get('.rbc-event-content').contains('ceci est un test !').dblclick();
+
+        cy.get('.rbc-event-content').should('not.exist');
+
+        cy.getAllLocalStorage()
+            .then(
+                ls => expect(JSON.parse(ls[Cypress.config().baseUrl].tasks)).to.deep.equal([])
+            )
+        ;
     });
 });
