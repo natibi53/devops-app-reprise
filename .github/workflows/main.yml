@@ -11,16 +11,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 9
-
       - name: Install dependencies
-        run: pnpm install
+        run: npm install
 
       - name: Build app
-        run: pnpm build
+        run: npm run build
 
       - name: Docker Login
         uses: azure/docker-login@v1
@@ -34,5 +29,5 @@ jobs:
         with:
           push: true
           context: .
-          tags: ${{ secrets.AZURE_URL }}/devops-app:${{github.sha}}
+          tags: ${{ secrets.AZURE_URL }}/devops-app-conteneur:${{github.sha}}
           file: Dockerfile
