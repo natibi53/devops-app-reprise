@@ -1,5 +1,5 @@
 FROM nginx:1.27.2-alpine
-LABEL authors="aizon"
+LABEL authors="natibi53"
 
 ENV NGINX_VERSION=1.27.2
 
