@@ -42,7 +42,7 @@ jobs:
         with:
           resource-group: ${{ secrets.AZURE_RESSOURCE_GROUP }}
           dns-name-label: ${{ secrets.AZURE_RESSOURCE_GROUP }}${{ github.run_number }}
-          image: ${{ secrets.AZURE_URL }}/sampleapp:${{ github.sha }}
+          image: ${{ secrets.AZURE_URL }}/devops-app-conteneur:${{ github.sha }}
           registry-login-server: ${{ secrets.AZURE_URL }}
           registry-username: ${{ secrets.ACR_USERNAME }}
           registry-password: ${{ secrets.ACR_PASSWORD }}
