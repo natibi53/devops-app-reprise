@@ -48,3 +48,20 @@ jobs:
           registry-password: ${{ secrets.ACR_PASSWORD }}
           name: devops-app-conteneur
           location: 'west us'
+
+# deploy:
+#   needs: build
+#   runs-on: unbuntu-22.04
+#   steps: 
+#     - name: 'login via Azure CLI'
+#       uses: azure/login@v1
+#       with:
+#         ressource-group: contoso
+#         dns-name-label: url-for-container
+#         image: contoso.azurecr.io/nodejssampleapp:${{ github.sha }}
+#         cpu: 1                                                            #option
+#         memory: 0.1                                                       #option
+#         registry-username: ${{ secrets.REGISTRY_USERNAME }}
+#         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+#         #ame: contoso-container
+#         location: 'west us'
