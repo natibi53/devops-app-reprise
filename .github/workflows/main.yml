@@ -47,7 +47,7 @@ jobs:
           registry-username: ${{ secrets.ACR_USERNAME }}
           registry-password: ${{ secrets.ACR_PASSWORD }}
           name: devops-app-conteneur
-          location: 'west us'
+          location: 'francecentral'
 
 # deploy:
 #   needs: build
@@ -64,4 +64,4 @@ jobs:
 #         registry-username: ${{ secrets.REGISTRY_USERNAME }}
 #         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
 #         #ame: contoso-container
-#         location: 'west us'
+#         location: 'francecentral'
