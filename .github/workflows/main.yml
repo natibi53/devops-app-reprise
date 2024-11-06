@@ -56,12 +56,12 @@ jobs:
 #     - name: 'login via Azure CLI'
 #       uses: azure/login@v1
 #       with:
-#         ressource-group: contoso
-#         dns-name-label: url-for-container
-#         image: contoso.azurecr.io/nodejssampleapp:${{ github.sha }}
+#         ressource-group: ressourcesDevopsApp
+#         dns-name-label: devopsappregistry.azurecr.io
+#         image: contoso.azurecr.io/devops-app-conteneur:${{ github.sha }}
 #         cpu: 1                                                            #option
 #         memory: 0.1                                                       #option
 #         registry-username: ${{ secrets.REGISTRY_USERNAME }}
 #         registry-password: ${{ secrets.REGISTRY_PASSWORD }}
-#         #ame: contoso-container
+#         name: devops-app-conteneur
 #         location: 'francecentral'
